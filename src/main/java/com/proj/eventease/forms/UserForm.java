@@ -27,7 +27,7 @@ public class UserForm {
     @NotBlank(message= "Email is required")
     private String email;
     @NotBlank(message= "password is required")
-    @Size(min=6,message = "Min 3 characters reqd.")
+    @Size(min=3,message = "Min 3 characters reqd.")
     private String password;
     @NotBlank(message= "fill your dept.")
     private String about;

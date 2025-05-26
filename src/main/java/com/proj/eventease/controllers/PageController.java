@@ -24,7 +24,12 @@ public class PageController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/")
+    @GetMapping("/")
+    public String index(){
+        return "redirect:/homepage";
+    }
+
+    @RequestMapping("/homepage")
     public String home(Model m){
         System.out.println("Home page handler");
         m.addAttribute("name", "Clubs");
@@ -98,6 +103,7 @@ public class PageController {
         user.setAbout(userForm.getAbout());
         user.setPhoneNumber(userForm.getPhoneNumber());
         user.setProfilePic("null"); 
+        user.setEnabled(true);
 
         User savedUser =userService.saveUser(user);
         System.out.println("user saved");
