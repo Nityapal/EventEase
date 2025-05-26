@@ -24,7 +24,7 @@ public class PageController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/homepage")
+    @RequestMapping("/")
     public String home(Model m){
         System.out.println("Home page handler");
         m.addAttribute("name", "Clubs");

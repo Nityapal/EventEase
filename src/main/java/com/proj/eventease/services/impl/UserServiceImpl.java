@@ -8,9 +8,11 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.proj.eventease.entities.User;
+import com.proj.eventease.helpers.AppConstants;
 import com.proj.eventease.helpers.ResourceNotFoundException;
 import com.proj.eventease.repositories.UserRepo;
 import com.proj.eventease.services.UserService;
@@ -21,12 +23,21 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepo userRepo;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private Logger logger= LoggerFactory.getLogger(this.getClass());
 
     @Override
     public User saveUser(User user) {
         String userId= UUID.randomUUID().toString();
         user.setUserId(userId);
+        //password encode
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        //set the user role
+        user.setRoleList(List.of(AppConstants.ROLE_USER));
+        logger.info(user.getProvider().toString());
         return userRepo.save(user);
     }
 
